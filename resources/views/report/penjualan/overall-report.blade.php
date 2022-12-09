@@ -46,17 +46,17 @@
                         <tr id="metode_pemb">
                             <td id="cek">Metode Pembayaran</td>
                         </tr>
-                        <tr>
+                        <tr style="border-top:1pt solid grey;">
                             <td>Total Transaksi</td>
                             <td></td>
-                            <td id="total_trans"></td>
+                            <td id="total_trans" style="font-weight:bold"></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Total Penjualan</td>
                             <td></td>
                             <td></td>
-                            <td id="total_penj"></td>
+                            <td id="total_penj" style="font-weight:bold"></td>
                         </tr>
                         <!-- <tr>
                             <td>Laba Kotor</td>
@@ -67,6 +67,29 @@
                         </tr> -->
 
                     </table>
+                </div>
+                <h6 class="mt-3">Pengeluaran</h6>
+                <div class="card" style="background-color : #FAFAFC">
+                    <table class="table" width="100%" style="line-height:10px" cellspacing="0">
+                    <tr id="pengeluaran">
+                        <td id="cek2" style="width:50%">Pengeluaran Lain-lain</td>
+                    </tr>
+                    <tr>
+                        <td>Pembelian Ingredients</td>
+                        <td></td>
+                        <td style="width:15%"></td>
+                        <td id="pengeluaran_ingredient"></td>
+
+                    </tr>
+                    <tr style="border-top:2pt solid grey;">
+                        <td>Total</td>
+                        <td></td>
+                        <td style="width:15%"></td>
+                        <td id="total_pengeluaran" style="font-weight:bold"></td>
+
+                    </tr>
+                    </table>
+
                 </div>
                 <h6 class="mt-3">Menu</h6>
                 <div class="card" style="background-color : #FAFAFC">
@@ -125,27 +148,28 @@ $(document).ready(function($){
             success: function(res){
                 checkTable();
                 console.log(res.metode_pemb);
-                appendTable(res.total_trans, res.metode_pemb, res.total_penj, res.total_menu, res.top_kategori, res.top_menu);
+                appendTable(res.total_trans, res.metode_pemb, res.total_penj, res.total_menu, res.top_kategori, res.top_menu, res.pengeluaran_lain, res.pengeluaran_ingredient, res.total_pengeluaran);
             }
         });
     });
 });
-function appendTable(total_trans, metode_pemb, total_penj, total_menu, top_kategori, top_menu){
+function appendTable(total_trans, metode_pemb, total_penj, total_menu, top_kategori, top_menu, pengeluaran_lain, pengeluaran_ingredient, total_pengeluaran){
 
-    const formatted = total_penj.toLocaleString('id-ID');
-
+    const formatted = total_penj.toLocaleString('id-ID')
+    console.log(total_pengeluaran);
     document.getElementById("total_trans").innerHTML = total_trans
     document.getElementById("total_penj").innerHTML = formatted
     document.getElementById("total_menu").innerHTML = total_menu
     document.getElementById("top_kategori").innerHTML = top_kategori.nama_kategori
     document.getElementById("top_menu").innerHTML = top_menu.nama_menu
+    document.getElementById("pengeluaran_ingredient").innerHTML =   new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format(pengeluaran_ingredient);
+    document.getElementById("total_pengeluaran").innerHTML = new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 10 }).format(total_pengeluaran);
 
-    console.log(top_menu);
     $('#cek').attr('rowspan', metode_pemb.length+1);
-
     metode_pemb.forEach(appendPemb);
 
-    
+    $('#cek2').attr('rowspan', pengeluaran_lain.length+1);
+    pengeluaran_lain.forEach(appendPengeluaran);
     $("#tableReport").show();
     
 }
@@ -160,7 +184,11 @@ function appendPemb(metode_pemb){
     $('#metode_pemb').after(tambah_data);
 
 }
-
+function appendPengeluaran(pengeluaran_lain){
+    const formatted = pengeluaran_lain.total.toLocaleString('id-ID');
+    var tambah_data = '<tr><td>'+pengeluaran_lain.items+'</td><td style="width:15%"></td><td>'+formatted+'</td></tr>'
+    $('#pengeluaran').after(tambah_data);
+}
 </script>
 
 @endsection
