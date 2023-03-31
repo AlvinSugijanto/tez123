@@ -106,6 +106,11 @@
                 <span style="font-size:14px; font-weight:bold; color:#707070">Order</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/ingredients">
+                <i class="fas fa-fw fa-table"></i>
+                <span style="font-size:14px; font-weight:bold; color:#707070">Ingredients</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-hamburger" style=""></i>
@@ -120,24 +125,18 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Tables -->
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="ingredients">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Ingredients</span></a>
-            </li> -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Ingredients"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <!-- <i class="fas fa-fw fa-table"></i> -->
                     <i class="fa-solid fa-kitchen-set"></i>
-                    <span style="font-size:14px; font-weight:bold; color:#707070">Ingredients</span>
+                    <span style="font-size:14px; font-weight:bold; color:#707070">Purchase</span>
                 </a>
                 <div id="Ingredients" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="py-2 collapse-inner rounded" style="background-color:#CEC8C8">
-                        <a class="collapse-item" href="/ingredients" style="font-size:13px; font-weight:bold; color:#313131">Ingredients</a>
                         <a class="collapse-item" href="/ingredients_purchase" style="font-size:13px; font-weight:bold; color:#313131">Ingredients Purchase</a>
+                        <a class="collapse-item" href="/other_purchase" style="font-size:13px; font-weight:bold; color:#313131">Other Purchase</a>
                     </div>
                 </div>
             </li>

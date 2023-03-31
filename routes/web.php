@@ -52,6 +52,10 @@ Route::get('ingredients_purchase', [PurchaseController::class, 'index']);
 Route::post('purchase/create', [PurchaseController::class, 'create']);
 Route::post('purchase/show', [PurchaseController::class, 'show']);
 
+Route::get('other_purchase', [OtherPurchaseController::class, 'index']);
+Route::post('other_purchase/create', [OtherPurchaseController::class, 'create']);
+Route::post('other_purchase/edit', [OtherPurchaseController::class, 'edit']);
+Route::post('other_purchase/update', [OtherPurchaseController::class, 'update']);
 
 
 

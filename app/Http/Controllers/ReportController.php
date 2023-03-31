@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Kategori;
 use App\Models\DetailOrder;
 use App\Models\VarianHarga;
+use App\Models\Purchase;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -66,6 +67,23 @@ public function get_overall_report(Request $request){
     ->orderBy('total','desc')
     ->first();
 
+    $pengeluaran_lain = DB::table('other_purchase')
+    ->whereDate('created_at', '>=',$from)
+    ->whereDate('created_at', '<=',$to)
+    ->get();
+
+    $pengeluaran_ingredient = Purchase::whereDate('created_at', '>=',$from)
+    ->whereDate('created_at', '<=',$to)
+    ->where('jenis_pembayaran','!=',NULL)
+    ->sum('total');
+
+    $total_pengeluaran = 0;
+
+    foreach($pengeluaran_lain as $row){
+        $total_pengeluaran += $row->total;
+    }
+    $total_pengeluaran += $pengeluaran_ingredient;
+
     return response()->json([
         'success' => true,
         'total_trans' => $total_transaksi,
@@ -73,7 +91,11 @@ public function get_overall_report(Request $request){
         'total_penj'  => $total_penj,
         'total_menu'  => $total_menu,
         'top_kategori'=> $top_kategori,
-        'top_menu'    => $top_menu
+        'top_menu'    => $top_menu,
+        'pengeluaran_lain' => $pengeluaran_lain,
+        'pengeluaran_ingredient' => $pengeluaran_ingredient,
+        'total_pengeluaran' => $total_pengeluaran,
+
     ]);
 
 }
